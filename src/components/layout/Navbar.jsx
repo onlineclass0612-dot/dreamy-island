@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Sun, Heart, Calendar } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Sun, Calendar } from 'lucide-react';
 import { soundscape } from '../../utils/audioEngine';
 
 export default function Navbar({ onOpenBooking, onNavigate }) {
@@ -10,7 +10,7 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 25);
+      setScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -47,13 +47,13 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
           left: 0,
           width: '100%',
           zIndex: 900,
-          padding: scrolled ? '0.85rem 2rem' : '1.15rem 2.25rem',
-          backgroundColor: scrolled ? 'rgba(251, 248, 243, 0.88)' : 'rgba(251, 248, 243, 0.72)',
-          backdropFilter: 'blur(22px)',
-          WebkitBackdropFilter: 'blur(22px)',
-          borderBottom: scrolled ? '1px solid rgba(184, 117, 50, 0.22)' : '1px solid rgba(78, 68, 59, 0.1)',
-          boxShadow: scrolled ? '0 6px 25px rgba(60, 42, 26, 0.06)' : '0 2px 10px rgba(60, 42, 26, 0.02)',
-          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+          padding: scrolled ? '0.85rem 2rem' : '1.35rem 2.25rem',
+          backgroundColor: scrolled ? 'rgba(251, 248, 243, 0.85)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(184, 117, 50, 0.18)' : '1px solid transparent',
+          boxShadow: scrolled ? '0 6px 25px rgba(60, 42, 26, 0.06)' : 'none',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
         <div
@@ -74,35 +74,39 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
               alignItems: 'center',
               gap: '0.75rem',
               textDecoration: 'none',
-              color: '#241d17'
+              color: '#1a140f'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '10px',
-                backgroundColor: 'rgba(211, 146, 78, 0.14)',
-                border: '1px solid rgba(211, 146, 78, 0.35)',
+                backgroundColor: scrolled ? 'rgba(211, 146, 78, 0.14)' : 'rgba(255, 253, 249, 0.9)',
+                border: '1.5px solid rgba(211, 146, 78, 0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#d3924e'
+                color: '#b87532',
+                boxShadow: scrolled ? 'none' : '0 4px 12px rgba(80, 55, 30, 0.08)',
+                backdropFilter: 'blur(8px)',
+                transition: 'all 0.3s ease'
               }}
             >
-              <Sun size={20} />
+              <Sun size={21} />
             </div>
             <div>
               <span
                 className="font-serif"
                 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 600,
+                  fontSize: '1.3rem',
+                  fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   display: 'block',
                   lineHeight: 1,
-                  color: '#241d17'
+                  color: '#1a140f',
+                  textShadow: scrolled ? 'none' : '0 1px 4px rgba(255, 255, 255, 0.6)'
                 }}
               >
                 Dreamy Island
@@ -111,10 +115,13 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 className="font-mono"
                 style={{
                   fontSize: '0.625rem',
-                  color: '#b87532',
+                  color: '#9e5a1b',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
-                  fontWeight: 500
+                  fontWeight: 600,
+                  display: 'block',
+                  marginTop: '2px',
+                  textShadow: scrolled ? 'none' : '0 1px 3px rgba(255, 255, 255, 0.6)'
                 }}
               >
                 Suaka Pesisir yang Hangat &amp; Tenang
@@ -137,17 +144,24 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
                 style={{
-                  color: '#4e443b',
+                  color: '#1a140f',
                   textDecoration: 'none',
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
                   letterSpacing: '0.02em',
-                  transition: 'color 0.3s ease',
+                  transition: 'all 0.25s ease',
                   position: 'relative',
-                  padding: '0.25rem 0'
+                  padding: '0.25rem 0',
+                  textShadow: scrolled ? 'none' : '0 1px 4px rgba(255, 255, 255, 0.6)'
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#c46d4a')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#4e443b')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#c46d4a';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#1a140f';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
                 {link.name}
               </a>
@@ -165,15 +179,19 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.55rem 0.95rem',
+                padding: '0.58rem 1rem',
                 borderRadius: '8px',
-                backgroundColor: isAudioPlaying ? 'rgba(211, 146, 78, 0.16)' : 'rgba(78, 68, 59, 0.05)',
-                border: isAudioPlaying ? '1px solid #d3924e' : '1px solid rgba(78, 68, 59, 0.14)',
-                color: isAudioPlaying ? '#b87532' : '#7f7266',
+                backgroundColor: isAudioPlaying 
+                  ? 'rgba(211, 146, 78, 0.22)' 
+                  : (scrolled ? 'rgba(78, 68, 59, 0.06)' : 'rgba(255, 253, 249, 0.82)'),
+                backdropFilter: 'blur(10px)',
+                border: isAudioPlaying ? '1.5px solid #d3924e' : '1.5px solid rgba(184, 117, 50, 0.35)',
+                color: isAudioPlaying ? '#9e5a1b' : '#1a140f',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 fontSize: '0.75rem',
-                fontFamily: 'var(--font-mono)'
+                fontFamily: 'var(--font-mono)',
+                boxShadow: scrolled ? 'none' : '0 2px 10px rgba(80, 55, 30, 0.06)'
               }}
             >
               {isAudioPlaying ? <Volume2 size={15} /> : <VolumeX size={15} />}
@@ -210,7 +228,8 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
               style={{
                 padding: '0.65rem 1.4rem',
                 fontSize: '0.8125rem',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                boxShadow: '0 4px 18px rgba(184, 117, 50, 0.35)'
               }}
             >
               <Calendar size={14} />
@@ -228,9 +247,10 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 width: '38px',
                 height: '38px',
                 borderRadius: '8px',
-                backgroundColor: 'rgba(78, 68, 59, 0.05)',
-                border: '1px solid rgba(78, 68, 59, 0.12)',
-                color: '#241d17',
+                backgroundColor: 'rgba(255, 253, 249, 0.85)',
+                backdropFilter: 'blur(8px)',
+                border: '1.5px solid rgba(184, 117, 50, 0.3)',
+                color: '#1a140f',
                 cursor: 'pointer'
               }}
             >
@@ -249,7 +269,7 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
             exit={{ opacity: 0, y: -15 }}
             style={{
               position: 'fixed',
-              top: '72px',
+              top: '75px',
               left: '1rem',
               right: '1rem',
               zIndex: 899,
@@ -257,8 +277,8 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
               borderRadius: '16px',
               backgroundColor: 'rgba(255, 253, 249, 0.98)',
               backdropFilter: 'blur(25px)',
-              border: '1px solid rgba(184, 117, 50, 0.3)',
-              boxShadow: '0 25px 60px rgba(50, 35, 22, 0.15)',
+              border: '1.5px solid rgba(184, 117, 50, 0.3)',
+              boxShadow: '0 25px 60px rgba(50, 35, 22, 0.18)',
               display: 'flex',
               flexDirection: 'column',
               gap: '1.25rem'
@@ -271,10 +291,11 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 onClick={(e) => handleLinkClick(e, link.href)}
                 className="font-serif"
                 style={{
-                  color: '#241d17',
+                  color: '#1a140f',
                   textDecoration: 'none',
                   fontSize: '1.35rem',
                   letterSpacing: '0.03em',
+                  fontWeight: 600,
                   borderBottom: '1px solid rgba(78,68,59,0.08)',
                   paddingBottom: '0.75rem'
                 }}
