@@ -6,6 +6,9 @@ import { mapHotspots } from '../../data/mapHotspots';
 export default function InteractiveMap({ onExploreLocation }) {
   const [selectedHotspot, setSelectedHotspot] = useState(mapHotspots[0]);
 
+  const headerWords1 = 'Jelajahi Sudut-Sudut Tenang di'.split(' ');
+  const headerWords2 = 'Dreamy Island'.split(' ');
+
   return (
     <section
       id="map"
@@ -26,11 +29,20 @@ export default function InteractiveMap({ onExploreLocation }) {
           marginBottom: '3.5rem'
         }}
       >
-        <div className="warm-badge" style={{ marginBottom: '1.25rem' }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.88, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          className="warm-badge"
+          style={{ marginBottom: '1.25rem', cursor: 'default' }}
+        >
           <Compass size={13} />
           <span>Geografi Pulau Kecil</span>
-        </div>
+        </motion.div>
 
+        {/* Staggered Word Reveal Heading */}
         <h2
           className="font-serif"
           style={{
@@ -38,16 +50,52 @@ export default function InteractiveMap({ onExploreLocation }) {
             fontWeight: 400,
             lineHeight: 1.15,
             color: '#241d17',
-            marginBottom: '1.25rem'
+            marginBottom: '1.25rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.28em'
           }}
         >
-          Jelajahi Sudut-Sudut Tenang di{' '}
-          <span style={{ fontStyle: 'italic', color: '#c46d4a' }}>
-            Dreamy Island
-          </span>
+          {headerWords1.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, color: '#b87532', transition: { duration: 0.2 } }}
+              style={{ display: 'inline-block', cursor: 'default' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+
+          {headerWords2.map((word, i) => (
+            <motion.span
+              key={`sub-${i}`}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              style={{
+                display: 'inline-block',
+                fontStyle: 'italic',
+                color: '#c46d4a',
+                cursor: 'default'
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </h2>
 
-        <p
+        <motion.p
+          initial={{ opacity: 0, y: 22, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.95, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           style={{
             maxWidth: '660px',
             fontSize: '1.05rem',
@@ -58,146 +106,107 @@ export default function InteractiveMap({ onExploreLocation }) {
         >
           Sebuah pulau kecil terpencil dengan jalan setapak pasir putih yang lembut, teluk laut yang tenang, 
           dan keteduhan pohon kelapa. Klik pada setiap penanda untuk menemukan kedamaian di setiap sudut pulau.
-        </p>
+        </motion.p>
       </div>
 
       {/* Map Canvas & Interactive Hotspot Display */}
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, margin: '-30px' }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         className="glass-warm-header"
         style={{
           borderRadius: '24px',
           border: '1px solid rgba(255, 255, 255, 0.95)',
           overflow: 'hidden',
-          position: 'relative',
-          boxShadow: '0 20px 50px rgba(80, 55, 30, 0.08)',
-          backgroundColor: '#f4ece2'
+          boxShadow: '0 20px 60px rgba(60, 42, 26, 0.08)',
+          backgroundColor: 'rgba(251, 248, 243, 0.95)'
         }}
       >
-        {/* Main Sunlit Coastal Vector Atoll Visual */}
+        {/* Watercolor Styled Lagoon Map Canvas */}
         <div
           style={{
             position: 'relative',
-            width: '100%',
-            height: '540px',
-            background: 'radial-gradient(ellipse at center, #d8eeeb 0%, #c4e4e0 50%, #b0d8d4 100%)',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
+            height: '480px',
+            backgroundColor: '#e6ded4',
+            overflow: 'hidden'
           }}
         >
-          {/* Gentle Water Ripple Patterns */}
+          {/* Outer Deep Ocean SVG */}
           <svg
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              opacity: 0.35,
-              pointerEvents: 'none'
-            }}
-          >
-            <defs>
-              <pattern id="warmGrid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <circle cx="30" cy="30" r="1.5" fill="#388087" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#warmGrid)" />
-            {/* Soft Tidal Curves */}
-            <path
-              d="M 120 280 Q 400 140 750 210 T 1200 340"
-              fill="none"
-              stroke="#5b7f73"
-              strokeWidth="1.2"
-              strokeDasharray="6 6"
-              opacity="0.5"
-            />
-            <path
-              d="M 80 370 Q 500 250 850 330 T 1300 470"
-              fill="none"
-              stroke="#c46d4a"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-              opacity="0.4"
-            />
-          </svg>
-
-          {/* Island Atoll Organic Landmass Silhouette */}
-          <svg
+            style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}
             viewBox="0 0 1000 600"
-            style={{
-              position: 'absolute',
-              width: '88%',
-              height: '88%',
-              filter: 'drop-shadow(0 15px 35px rgba(56, 128, 135, 0.25))',
-              pointerEvents: 'none'
-            }}
+            preserveAspectRatio="none"
           >
-            {/* Outer Warm White Sand Halo */}
-            <path
-              d="M 220 300 C 180 180, 420 100, 650 140 C 850 180, 920 320, 800 450 C 680 540, 320 520, 220 300 Z"
-              fill="#fbf8f3"
-              stroke="rgba(211, 146, 78, 0.4)"
-              strokeWidth="2"
-            />
-            {/* Inner Lush Sage Tropical Island Canopy */}
-            <path
-              d="M 270 300 C 250 220, 430 165, 610 195 C 750 225, 790 335, 715 415 C 615 475, 345 435, 270 300 Z"
-              fill="url(#lushCanopyGradient)"
-              stroke="#5b7f73"
-              strokeWidth="1.5"
-            />
             <defs>
-              <linearGradient id="lushCanopyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#699285" />
-                <stop offset="50%" stopColor="#5b7f73" />
-                <stop offset="100%" stopColor="#4a6e62" />
+              <linearGradient id="deepOceanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8db5a6" stopOpacity="0.45" />
+                <stop offset="50%" stopColor="#a3c4b7" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#7a9e90" stopOpacity="0.5" />
               </linearGradient>
+
+              <radialGradient id="islandSandGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#f7f2e9" stopOpacity="1" />
+                <stop offset="70%" stopColor="#edd8be" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#dfc3a3" stopOpacity="0.8" />
+              </radialGradient>
+
+              <radialGradient id="lagoonGlow" cx="45%" cy="50%" r="40%">
+                <stop offset="0%" stopColor="#c3ded3" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#8db5a6" stopOpacity="0" />
+              </radialGradient>
             </defs>
+
+            {/* Ocean Base Layer */}
+            <rect width="1000" height="600" fill="url(#deepOceanGrad)" />
+
+            {/* Shimmering Lagoon Shallow Waters */}
+            <path
+              d="M 120,300 C 180,120 400,80 650,110 C 850,140 920,320 850,460 C 780,560 480,580 260,520 C 140,480 80,400 120,300 Z"
+              fill="url(#lagoonGlow)"
+            />
+
+            {/* Organic Island Sandbank Contour */}
+            <path
+              d="M 220,300 C 260,180 440,150 620,170 C 780,190 820,320 760,420 C 700,500 460,510 320,460 C 240,430 190,370 220,300 Z"
+              fill="url(#islandSandGrad)"
+              stroke="rgba(211, 146, 78, 0.4)"
+              strokeWidth="3"
+            />
+
+            {/* Lush Palm Grove Center Shape */}
+            <path
+              d="M 330,300 C 370,230 480,210 570,230 C 660,250 690,330 650,380 C 600,430 450,430 380,400 C 330,380 300,340 330,300 Z"
+              fill="rgba(91, 127, 115, 0.28)"
+            />
           </svg>
 
-          {/* Warm Compass Indicator */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '1.75rem',
-              right: '1.75rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              pointerEvents: 'none',
-              opacity: 0.85
-            }}
-          >
-            <Compass size={38} color="#c46d4a" />
-            <span className="font-mono" style={{ fontSize: '0.65rem', color: '#b87532', letterSpacing: '0.15em', marginTop: '0.25rem', fontWeight: 600 }}>
-              UTARA • SUAKA ALAMI
-            </span>
-          </div>
-
-          {/* Map Scale & Details */}
+          {/* Compass Rose Accent */}
           <div
             className="font-mono"
             style={{
               position: 'absolute',
-              bottom: '1.5rem',
-              left: '2rem',
-              fontSize: '0.7rem',
-              color: '#4e443b',
+              top: '1.5rem',
+              left: '1.5rem',
+              backgroundColor: 'rgba(255, 253, 249, 0.9)',
+              padding: '0.5rem 0.95rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(184, 117, 50, 0.25)',
               display: 'flex',
-              flexDirection: 'column',
-              gap: '0.25rem',
-              pointerEvents: 'none',
-              fontWeight: 500
+              alignItems: 'center',
+              gap: '0.5rem',
+              fontSize: '0.75rem',
+              color: '#241d17'
             }}
           >
-            <span>KOORDINAT: 04°12'38"S 129°53'14"E</span>
-            <span>TOTAL WILAYAH: 1.8 KM² (100% NYAMAN TANPA ALAS KAKI)</span>
+            <Compass size={16} color="#d3924e" />
+            <span>08°39'S 115°13'E • DREAMY ATOLL</span>
           </div>
 
-          {/* Hotspot Interactive Markers */}
+          {/* Hotspot Markers */}
           {mapHotspots.map((spot) => {
-            const isSelected = selectedHotspot?.id === spot.id;
+            const isSelected = selectedHotspot && selectedHotspot.id === spot.id;
 
             return (
               <motion.div
@@ -211,40 +220,42 @@ export default function InteractiveMap({ onExploreLocation }) {
                   cursor: 'pointer',
                   zIndex: isSelected ? 20 : 10
                 }}
-                whileHover={{ scale: 1.25 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.15 }}
               >
-                {/* Pulsing Aura */}
+                {/* Pulsing Beacon Ring */}
                 <div
                   style={{
                     position: 'absolute',
-                    width: '36px',
-                    height: '36px',
-                    top: '-18px',
-                    left: '-18px',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: isSelected ? '46px' : '34px',
+                    height: isSelected ? '46px' : '34px',
                     borderRadius: '50%',
-                    backgroundColor: isSelected ? 'rgba(211, 146, 78, 0.45)' : 'rgba(91, 127, 115, 0.3)',
-                    animation: 'gentlePulse 2.5s infinite',
+                    backgroundColor: isSelected ? 'rgba(211, 146, 78, 0.35)' : 'rgba(91, 127, 115, 0.25)',
+                    animation: 'gentlePulse 3s infinite',
                     pointerEvents: 'none'
                   }}
                 />
 
-                {/* Center Pin Icon */}
+                {/* Pin Icon Bubble */}
                 <div
                   style={{
-                    width: isSelected ? '34px' : '28px',
-                    height: isSelected ? '34px' : '28px',
+                    position: 'relative',
+                    width: '32px',
+                    height: '32px',
                     borderRadius: '50%',
                     backgroundColor: isSelected ? '#d3924e' : '#ffffff',
-                    border: isSelected ? '2px solid #ffffff' : '2px solid #d3924e',
+                    border: '2px solid #ffffff',
+                    boxShadow: '0 4px 14px rgba(60, 42, 26, 0.2)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: isSelected ? '0 4px 18px rgba(211, 146, 78, 0.5)' : '0 4px 10px rgba(80,55,30,0.15)',
+                    color: isSelected ? '#ffffff' : '#241d17',
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  <MapPin size={isSelected ? 16 : 14} color={isSelected ? '#ffffff' : '#b87532'} />
+                  <MapPin size={16} />
                 </div>
 
                 {/* Title Label below pin */}
@@ -252,7 +263,7 @@ export default function InteractiveMap({ onExploreLocation }) {
                   className="font-mono"
                   style={{
                     position: 'absolute',
-                    top: '24px',
+                    top: '36px',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     whiteSpace: 'nowrap',
@@ -316,18 +327,20 @@ export default function InteractiveMap({ onExploreLocation }) {
                 </p>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => onExploreLocation(selectedHotspot)}
                 className="btn-warm-secondary"
                 style={{ padding: '0.75rem 1.5rem', fontSize: '0.8125rem' }}
               >
                 <span>Jelajahi Lokasi Ini</span>
                 <ChevronRight size={14} />
-              </button>
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </section>
   );
 }

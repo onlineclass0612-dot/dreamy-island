@@ -50,7 +50,7 @@ export default function Villas({ onSelectVilla, onQuickView }) {
     },
     sinking: {
       opacity: 0,
-      y: 110, // Terbenam perlahan ke arah bawah
+      y: 110,
       x: 0,
       scale: 0.91,
       pointerEvents: 'none',
@@ -60,6 +60,9 @@ export default function Villas({ onSelectVilla, onQuickView }) {
       }
     }
   };
+
+  const headerWords1 = 'Pondok Pasir Pantai &'.split(' ');
+  const headerWords2 = 'Suaka Terapung Laguna'.split(' ');
 
   return (
     <section
@@ -81,11 +84,20 @@ export default function Villas({ onSelectVilla, onQuickView }) {
           marginBottom: '4rem'
         }}
       >
-        <div className="warm-badge" style={{ marginBottom: '1.25rem' }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.88, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          className="warm-badge"
+          style={{ marginBottom: '1.25rem', cursor: 'default' }}
+        >
           <Heart size={13} />
           <span>Pondok Kayu yang Nyaman &amp; Intim</span>
-        </div>
+        </motion.div>
 
+        {/* Staggered Word Reveal Heading */}
         <h2
           className="font-serif"
           style={{
@@ -93,16 +105,52 @@ export default function Villas({ onSelectVilla, onQuickView }) {
             fontWeight: 400,
             lineHeight: 1.15,
             color: '#241d17',
-            marginBottom: '1.25rem'
+            marginBottom: '1.25rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.28em'
           }}
         >
-          Pondok Pasir Pantai &amp;{' '}
-          <span style={{ fontStyle: 'italic', color: '#c46d4a' }}>
-            Suaka Terapung Laguna
-          </span>
+          {headerWords1.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, color: '#b87532', transition: { duration: 0.2 } }}
+              style={{ display: 'inline-block', cursor: 'default' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+
+          {headerWords2.map((word, i) => (
+            <motion.span
+              key={`sub-${i}`}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              style={{
+                display: 'inline-block',
+                fontStyle: 'italic',
+                color: '#c46d4a',
+                cursor: 'default'
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </h2>
 
-        <p
+        <motion.p
+          initial={{ opacity: 0, y: 22, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.95, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           style={{
             maxWidth: '680px',
             fontSize: '1.05rem',
@@ -114,10 +162,14 @@ export default function Villas({ onSelectVilla, onQuickView }) {
         >
           Dibangun dari kayu jati alami, anyaman rotan, dan balutan kain linen yang lembut. 
           Setiap pondok dirancang untuk menyambut semilir angin laut dan menghadirkan kedamaian sejati yang menenangkan jiwa.
-        </p>
+        </motion.p>
 
         {/* Filter Category Tabs */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
           style={{
             display: 'inline-flex',
             padding: '0.35rem',
@@ -128,8 +180,10 @@ export default function Villas({ onSelectVilla, onQuickView }) {
           }}
         >
           {categories.map((cat) => (
-            <button
+            <motion.button
               key={cat.key}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setActiveCategory(cat.key)}
               style={{
                 padding: '0.6rem 1.4rem',
@@ -147,12 +201,12 @@ export default function Villas({ onSelectVilla, onQuickView }) {
               }}
             >
               {cat.label}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
       </div>
 
-      {/* Villas Fixed Grid Container (Holds each villa in its original column position without shifting) */}
+      {/* Villas Fixed Grid Container */}
       <div
         className="villas-fixed-grid"
         style={{
@@ -246,7 +300,9 @@ export default function Villas({ onSelectVilla, onQuickView }) {
                 </div>
 
                 {/* Quick View Floating Button */}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => onQuickView(villa)}
                   style={{
                     position: 'absolute',
@@ -278,7 +334,7 @@ export default function Villas({ onSelectVilla, onQuickView }) {
                 >
                   <Eye size={13} />
                   <span>Lihat Detail</span>
-                </button>
+                </motion.button>
               </div>
 
               {/* Body Specs */}
@@ -353,7 +409,9 @@ export default function Villas({ onSelectVilla, onQuickView }) {
                     </div>
                   </div>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
                     onClick={() => onSelectVilla(villa.id)}
                     className="btn-warm-primary"
                     style={{
@@ -363,7 +421,7 @@ export default function Villas({ onSelectVilla, onQuickView }) {
                   >
                     <span>Pesan Suaka</span>
                     <ArrowUpRight size={15} />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </motion.div>

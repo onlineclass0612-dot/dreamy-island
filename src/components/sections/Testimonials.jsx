@@ -4,6 +4,9 @@ import { Heart, Star, Quote } from 'lucide-react';
 import { awardsData } from '../../data/diningData';
 
 export default function Testimonials() {
+  const headerWords1 = 'Bisikan dari Mereka yang Menemukan'.split(' ');
+  const headerWords2 = 'Kedamaian'.split(' ');
+
   return (
     <section
       style={{
@@ -19,11 +22,20 @@ export default function Testimonials() {
           marginBottom: '4rem'
         }}
       >
-        <div className="warm-badge" style={{ marginBottom: '1.25rem' }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.88, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          className="warm-badge"
+          style={{ marginBottom: '1.25rem', cursor: 'default' }}
+        >
           <Heart size={13} />
           <span>Kesan dari Hati</span>
-        </div>
+        </motion.div>
 
+        {/* Staggered Word Reveal Heading */}
         <h2
           className="font-serif"
           style={{
@@ -31,13 +43,45 @@ export default function Testimonials() {
             fontWeight: 400,
             lineHeight: 1.15,
             color: '#241d17',
-            marginBottom: '1.25rem'
+            marginBottom: '1.25rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.28em'
           }}
         >
-          Bisikan dari Mereka yang Menemukan{' '}
-          <span style={{ fontStyle: 'italic', color: '#c46d4a' }}>
-            Kedamaian
-          </span>
+          {headerWords1.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, color: '#b87532', transition: { duration: 0.2 } }}
+              style={{ display: 'inline-block', cursor: 'default' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+
+          {headerWords2.map((word, i) => (
+            <motion.span
+              key={`sub-${i}`}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: 0.35 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              style={{
+                display: 'inline-block',
+                fontStyle: 'italic',
+                color: '#c46d4a',
+                cursor: 'default'
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </h2>
       </div>
 
@@ -52,10 +96,11 @@ export default function Testimonials() {
         {awardsData.map((award, index) => (
           <motion.div
             key={award.source}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.15 }}
+            initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: 0.85, delay: index * 0.16, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -6 }}
             className="glass-warm-card"
             style={{
               padding: '2.75rem 2.25rem',
@@ -72,7 +117,15 @@ export default function Testimonials() {
             <div>
               <div style={{ display: 'flex', gap: '3px', marginBottom: '1.5rem' }}>
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={15} fill="#d3924e" color="#d3924e" />
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.12 + i * 0.08 }}
+                  >
+                    <Star size={15} fill="#d3924e" color="#d3924e" />
+                  </motion.div>
                 ))}
               </div>
 

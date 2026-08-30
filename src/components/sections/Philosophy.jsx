@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Sun, Feather, Sparkles, Coffee } from 'lucide-react';
+import { Heart, Sun, Feather, Sparkles } from 'lucide-react';
 
 export default function Philosophy() {
   const pillars = [
@@ -20,6 +20,9 @@ export default function Philosophy() {
       description: 'Hanya tersedia beberapa pondok kayu alami di pulau kecil yang asri ini. Menghadirkan privasi seutuhnya, keheningan yang menyembuhkan, dan kehangatan sambutan yang tulus dari hati.'
     }
   ];
+
+  const headerWords1 = 'Saat Kemewahan Terwujud dalam'.split(' ');
+  const headerWords2 = 'Kedamaian & Kehangatan Sejati'.split(' ');
 
   return (
     <section
@@ -47,42 +50,72 @@ export default function Philosophy() {
 
       <div style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto 5rem' }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.88, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.04, y: -2 }}
           className="warm-badge"
-          style={{ marginBottom: '1.25rem', borderColor: 'rgba(184, 117, 50, 0.4)', color: '#a05c1e' }}
+          style={{ marginBottom: '1.25rem', borderColor: 'rgba(184, 117, 50, 0.4)', color: '#a05c1e', cursor: 'default' }}
         >
           <Sparkles size={13} />
           <span>Filosofi Hidup Santai &amp; Tenang</span>
         </motion.div>
 
-        <motion.h2
+        {/* Staggered Word Reveal Heading */}
+        <h2
           className="font-serif"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
           style={{
             fontSize: 'clamp(2.2rem, 5vw, 3.8rem)',
             fontWeight: 400,
             lineHeight: 1.15,
             color: '#1a1410',
-            marginBottom: '1.75rem'
+            marginBottom: '1.75rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.28em'
           }}
         >
-          Saat Kemewahan Terwujud dalam{' '}
-          <span style={{ fontStyle: 'italic', color: '#b85a38' }}>
-            Kedamaian &amp; Kehangatan Sejati
-          </span>
-        </motion.h2>
+          {headerWords1.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, color: '#b87532', transition: { duration: 0.2 } }}
+              style={{ display: 'inline-block', cursor: 'default' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+
+          {headerWords2.map((word, i) => (
+            <motion.span
+              key={`sub-${i}`}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: 0.35 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              style={{
+                display: 'inline-block',
+                fontStyle: 'italic',
+                color: '#b85a38',
+                cursor: 'default'
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.95, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontSize: '1.15rem',
             color: '#2b231c',
@@ -108,10 +141,11 @@ export default function Philosophy() {
           <motion.div
             key={pillar.title}
             className="glass-warm-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.15 }}
+            initial={{ opacity: 0, y: 36, filter: 'blur(6px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: 0.85, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -6 }}
             style={{
               padding: '2.75rem 2.25rem',
               borderRadius: '24px',
@@ -125,7 +159,9 @@ export default function Philosophy() {
             }}
           >
             <div>
-              <div
+              <motion.div
+                whileHover={{ rotate: 12, scale: 1.08 }}
+                transition={{ type: 'spring', stiffness: 300 }}
                 style={{
                   width: '56px',
                   height: '56px',
@@ -139,9 +175,9 @@ export default function Philosophy() {
                 }}
               >
                 {pillar.icon}
-              </div>
+              </motion.div>
 
-              <h3
+              <motion.h3
                 className="font-serif"
                 style={{
                   fontSize: '1.6rem',
@@ -151,7 +187,7 @@ export default function Philosophy() {
                 }}
               >
                 {pillar.title}
-              </h3>
+              </motion.h3>
 
               <p
                 style={{
@@ -173,9 +209,13 @@ export default function Philosophy() {
                 color: '#a05c1e',
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
-                fontWeight: 600
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
               }}
             >
+              <span style={{ width: '8px', height: '2px', backgroundColor: '#d3924e', borderRadius: '1px' }}></span>
               <span>PILAR KETENANGAN 0{index + 1}</span>
             </div>
           </motion.div>

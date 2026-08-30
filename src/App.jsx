@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 
 // Layout & Sections
@@ -13,6 +13,9 @@ import InteractiveMap from './components/sections/InteractiveMap';
 import Dining from './components/sections/Dining';
 import Testimonials from './components/sections/Testimonials';
 import Footer from './components/layout/Footer';
+
+// Interactive Water Painting Canvas Effect
+import WaterCanvasTrail from './components/effects/WaterCanvasTrail';
 
 // Modals
 import VillaModal from './components/modals/VillaModal';
@@ -73,6 +76,9 @@ export default function App() {
 
   return (
     <div style={{ position: 'relative', backgroundColor: 'var(--bg-primary)', minHeight: '100vh', overflowX: 'hidden' }}>
+      {/* Interactive Water Painting on Water Cursor Effect */}
+      <WaterCanvasTrail />
+
       {/* Natural Glow Texture Overlay */}
       <div className="natural-glow" />
 

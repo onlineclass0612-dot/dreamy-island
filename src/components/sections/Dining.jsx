@@ -6,6 +6,9 @@ import { diningData } from '../../data/diningData';
 export default function Dining({ onBookDining }) {
   const [activeVenue, setActiveVenue] = useState(diningData[0]);
 
+  const headerWords1 = 'Cita Rasa Alami dari Hasil'.split(' ');
+  const headerWords2 = 'Laut & Kebun Pulau'.split(' ');
+
   return (
     <section
       id="dining"
@@ -26,11 +29,20 @@ export default function Dining({ onBookDining }) {
           marginBottom: '4rem'
         }}
       >
-        <div className="warm-badge" style={{ marginBottom: '1.25rem' }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.88, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          className="warm-badge"
+          style={{ marginBottom: '1.25rem', cursor: 'default' }}
+        >
           <Utensils size={13} />
           <span>Kuliner Pantai &amp; Kebun Organik</span>
-        </div>
+        </motion.div>
 
+        {/* Staggered Word Reveal Heading */}
         <h2
           className="font-serif"
           style={{
@@ -38,16 +50,52 @@ export default function Dining({ onBookDining }) {
             fontWeight: 400,
             lineHeight: 1.15,
             color: '#241d17',
-            marginBottom: '1.25rem'
+            marginBottom: '1.25rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.28em'
           }}
         >
-          Cita Rasa Alami dari Hasil{' '}
-          <span style={{ fontStyle: 'italic', color: '#c46d4a' }}>
-            Laut &amp; Kebun Pulau
-          </span>
+          {headerWords1.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, color: '#b87532', transition: { duration: 0.2 } }}
+              style={{ display: 'inline-block', cursor: 'default' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+
+          {headerWords2.map((word, i) => (
+            <motion.span
+              key={`sub-${i}`}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              style={{
+                display: 'inline-block',
+                fontStyle: 'italic',
+                color: '#c46d4a',
+                cursor: 'default'
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </h2>
 
-        <p
+        <motion.p
+          initial={{ opacity: 0, y: 22, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.95, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           style={{
             maxWidth: '680px',
             fontSize: '1.05rem',
@@ -58,10 +106,14 @@ export default function Dining({ onBookDining }) {
         >
           Dipersiapkan dari buah kelapa segar, rempah alami pulau, dan hasil laut tangkapan nelayan lokal. 
           Nikmati santapan santai bertelanjang kaki di atas pasir pantai dengan pendar lentera rotan yang hangat.
-        </p>
+        </motion.p>
 
         {/* Venue Switcher Tabs */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
           style={{
             display: 'flex',
             flexWrap: 'wrap',
@@ -71,8 +123,10 @@ export default function Dining({ onBookDining }) {
           }}
         >
           {diningData.map((venue) => (
-            <button
+            <motion.button
               key={venue.id}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setActiveVenue(venue)}
               style={{
                 padding: '0.65rem 1.4rem',
@@ -89,13 +143,17 @@ export default function Dining({ onBookDining }) {
               }}
             >
               {venue.name}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Split-Screen Showcase */}
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, margin: '-30px' }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         className="glass-warm-card"
         style={{
           borderRadius: '26px',
@@ -198,7 +256,9 @@ export default function Dining({ onBookDining }) {
             </p>
 
             {/* Signature Dish Callout */}
-            <div
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
               style={{
                 padding: '1.25rem 1.5rem',
                 borderRadius: '14px',
@@ -224,19 +284,21 @@ export default function Dining({ onBookDining }) {
               <p style={{ color: '#241d17', fontSize: '0.925rem', fontWeight: 500 }}>
                 "{activeVenue.highlightDish}"
               </p>
-            </div>
+            </motion.div>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => onBookDining(activeVenue.name)}
             className="btn-warm-primary"
             style={{ alignSelf: 'flex-start' }}
           >
             <span>Pesan Meja Lilin Pantai</span>
             <ChevronRight size={15} />
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

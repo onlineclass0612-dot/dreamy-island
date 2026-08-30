@@ -47,23 +47,25 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
           left: 0,
           width: '100%',
           zIndex: 900,
-          padding: scrolled ? '0.85rem 2rem' : '1.35rem 2.25rem',
+          padding: scrolled ? '1.25rem 3rem' : '1.85rem 3.75rem',
           backgroundColor: scrolled ? 'rgba(251, 248, 243, 0.85)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(184, 117, 50, 0.18)' : '1px solid transparent',
-          boxShadow: scrolled ? '0 6px 25px rgba(60, 42, 26, 0.06)' : 'none',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+          borderBottom: 'none',
+          boxShadow: scrolled ? '0 8px 30px rgba(60, 42, 26, 0.05)' : 'none',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          overflow: 'hidden'
         }}
       >
         <div
           style={{
-            maxWidth: '1360px',
+            maxWidth: '1600px',
             margin: '0 auto',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            width: '100%'
+            width: '100%',
+            gap: '1.5rem'
           }}
         >
           {/* Brand Logo */}
@@ -72,16 +74,18 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.85rem',
               textDecoration: 'none',
-              color: '#1a140f'
+              color: '#1a140f',
+              flexShrink: 0,
+              whiteSpace: 'nowrap'
             }}
           >
             <div
               style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
+                width: '44px',
+                height: '44px',
+                borderRadius: '12px',
                 backgroundColor: scrolled ? 'rgba(211, 146, 78, 0.14)' : 'rgba(255, 253, 249, 0.9)',
                 border: '1.5px solid rgba(211, 146, 78, 0.4)',
                 display: 'flex',
@@ -90,23 +94,25 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 color: '#b87532',
                 boxShadow: scrolled ? 'none' : '0 4px 12px rgba(80, 55, 30, 0.08)',
                 backdropFilter: 'blur(8px)',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                flexShrink: 0
               }}
             >
-              <Sun size={21} />
+              <Sun size={23} />
             </div>
             <div>
               <span
                 className="font-serif"
                 style={{
-                  fontSize: '1.3rem',
+                  fontSize: '1.35rem',
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   display: 'block',
                   lineHeight: 1,
                   color: '#1a140f',
-                  textShadow: scrolled ? 'none' : '0 1px 4px rgba(255, 255, 255, 0.6)'
+                  textShadow: scrolled ? 'none' : '0 1px 4px rgba(255, 255, 255, 0.6)',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 Dreamy Island
@@ -114,14 +120,15 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
               <span
                 className="font-mono"
                 style={{
-                  fontSize: '0.625rem',
+                  fontSize: '0.65rem',
                   color: '#9e5a1b',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   fontWeight: 600,
                   display: 'block',
-                  marginTop: '2px',
-                  textShadow: scrolled ? 'none' : '0 1px 3px rgba(255, 255, 255, 0.6)'
+                  marginTop: '3px',
+                  textShadow: scrolled ? 'none' : '0 1px 3px rgba(255, 255, 255, 0.6)',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 Suaka Pesisir yang Hangat &amp; Tenang
@@ -129,14 +136,16 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
             </div>
           </a>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Nav Links (Zero Text-Wrap) */}
           <nav
             style={{
               display: 'none',
               alignItems: 'center',
-              gap: '2.25rem'
+              gap: '2.75rem',
+              flexShrink: 0,
+              whiteSpace: 'nowrap'
             }}
-            className="md-flex"
+            className="desktop-nav-menu"
           >
             {navLinks.map((link) => (
               <a
@@ -146,13 +155,15 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 style={{
                   color: '#1a140f',
                   textDecoration: 'none',
-                  fontSize: '0.9rem',
+                  fontSize: '0.95rem',
                   fontWeight: 600,
                   letterSpacing: '0.02em',
                   transition: 'all 0.25s ease',
                   position: 'relative',
                   padding: '0.25rem 0',
-                  textShadow: scrolled ? 'none' : '0 1px 4px rgba(255, 255, 255, 0.6)'
+                  textShadow: scrolled ? 'none' : '0 1px 4px rgba(255, 255, 255, 0.6)',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#c46d4a';
@@ -169,7 +180,7 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
           </nav>
 
           {/* Right Action: Waves & Birdsong Toggle + Reserve Button */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexShrink: 0 }}>
             
             {/* Ambient Ocean Waves & Birdsong Button */}
             <button
@@ -179,8 +190,8 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.58rem 1rem',
-                borderRadius: '8px',
+                padding: '0.62rem 1.1rem',
+                borderRadius: '9px',
                 backgroundColor: isAudioPlaying 
                   ? 'rgba(211, 146, 78, 0.22)' 
                   : (scrolled ? 'rgba(78, 68, 59, 0.06)' : 'rgba(255, 253, 249, 0.82)'),
@@ -191,11 +202,13 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                 transition: 'all 0.3s ease',
                 fontSize: '0.75rem',
                 fontFamily: 'var(--font-mono)',
-                boxShadow: scrolled ? 'none' : '0 2px 10px rgba(80, 55, 30, 0.06)'
+                boxShadow: scrolled ? 'none' : '0 2px 10px rgba(80, 55, 30, 0.06)',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
-              {isAudioPlaying ? <Volume2 size={15} /> : <VolumeX size={15} />}
-              <span className="hidden-xs" style={{ letterSpacing: '0.04em', fontWeight: 600 }}>
+              {isAudioPlaying ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              <span className="hidden-xs" style={{ letterSpacing: '0.04em', fontWeight: 600, whiteSpace: 'nowrap' }}>
                 {isAudioPlaying ? 'OMBAK & BURUNG: AKTIF' : 'OMBAK & BURUNG: NONAKTIF'}
               </span>
 
@@ -226,41 +239,103 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
               onClick={onOpenBooking}
               className="btn-warm-primary"
               style={{
-                padding: '0.65rem 1.4rem',
-                fontSize: '0.8125rem',
-                borderRadius: '8px',
-                boxShadow: '0 4px 18px rgba(184, 117, 50, 0.35)'
+                padding: '0.72rem 1.6rem',
+                fontSize: '0.85rem',
+                borderRadius: '9px',
+                boxShadow: '0 4px 18px rgba(184, 117, 50, 0.35)',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
-              <Calendar size={14} />
+              <Calendar size={15} />
               <span>Pesan Suaka</span>
             </button>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile / Compact Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="mobile-toggle"
+              className="mobile-toggle-btn"
               style={{
                 display: 'none',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '38px',
-                height: '38px',
-                borderRadius: '8px',
+                width: '42px',
+                height: '42px',
+                borderRadius: '9px',
                 backgroundColor: 'rgba(255, 253, 249, 0.85)',
                 backdropFilter: 'blur(8px)',
                 border: '1.5px solid rgba(184, 117, 50, 0.3)',
                 color: '#1a140f',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                flexShrink: 0
               }}
             >
-              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
+          </div>
+        </div>
+
+        {/* Animated Flowing Ocean Wave Border Ribbon (Taller & Higher Wave Amplitude) */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            height: '14px',
+            overflow: 'hidden',
+            opacity: scrolled ? 1 : 0,
+            transition: 'opacity 0.45s ease',
+            pointerEvents: 'none'
+          }}
+        >
+          <div
+            className="navbar-wave-track"
+            style={{
+              display: 'flex',
+              width: '200%',
+              height: '100%',
+              animation: 'navbarWaveLoop 8s linear infinite'
+            }}
+          >
+            {/* Primary Single Golden-Brown Wave Crest */}
+            <svg viewBox="0 0 1200 28" preserveAspectRatio="none" style={{ width: '50%', height: '100%', display: 'block' }}>
+              <path
+                d="M 0,14 Q 75,0 150,14 T 300,14 T 450,14 T 600,14 T 750,14 T 900,14 T 1050,14 T 1200,14"
+                fill="none"
+                stroke="url(#navbarWaveGrad1)"
+                strokeWidth="3.4"
+              />
+              <defs>
+                <linearGradient id="navbarWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#d3924e" stopOpacity="0.85" />
+                  <stop offset="50%" stopColor="#c46d4a" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#d3924e" stopOpacity="0.85" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            {/* Seamless Repeating Single Golden-Brown Wave */}
+            <svg viewBox="0 0 1200 28" preserveAspectRatio="none" style={{ width: '50%', height: '100%', display: 'block' }}>
+              <path
+                d="M 0,14 Q 75,0 150,14 T 300,14 T 450,14 T 600,14 T 750,14 T 900,14 T 1050,14 T 1200,14"
+                fill="none"
+                stroke="url(#navbarWaveGrad2)"
+                strokeWidth="3.4"
+              />
+              <defs>
+                <linearGradient id="navbarWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#d3924e" stopOpacity="0.85" />
+                  <stop offset="50%" stopColor="#c46d4a" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#d3924e" stopOpacity="0.85" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile / Tablet Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -269,7 +344,7 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
             exit={{ opacity: 0, y: -15 }}
             style={{
               position: 'fixed',
-              top: '75px',
+              top: '85px',
               left: '1rem',
               right: '1rem',
               zIndex: 899,
@@ -297,7 +372,8 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
                   letterSpacing: '0.03em',
                   fontWeight: 600,
                   borderBottom: '1px solid rgba(78,68,59,0.08)',
-                  paddingBottom: '0.75rem'
+                  paddingBottom: '0.75rem',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {link.name}
@@ -318,13 +394,19 @@ export default function Navbar({ onOpenBooking, onNavigate }) {
       </AnimatePresence>
 
       <style>{`
-        @media (min-width: 860px) {
-          .md-flex { display: flex !important; }
+        @keyframes navbarWaveLoop {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
-        @media (max-width: 859px) {
-          .mobile-toggle { display: flex !important; }
+        @media (min-width: 1180px) {
+          .desktop-nav-menu { display: flex !important; }
+          .mobile-toggle-btn { display: none !important; }
         }
-        @media (max-width: 540px) {
+        @media (max-width: 1179px) {
+          .desktop-nav-menu { display: none !important; }
+          .mobile-toggle-btn { display: flex !important; }
+        }
+        @media (max-width: 640px) {
           .hidden-xs { display: none !important; }
         }
       `}</style>

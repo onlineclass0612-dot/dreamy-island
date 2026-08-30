@@ -4,6 +4,9 @@ import { Sparkles, Clock, ArrowRight, Sun, Heart } from 'lucide-react';
 import { experiencesData } from '../../data/experiencesData';
 
 export default function Experiences({ onOpenInquiry }) {
+  const headerWords1 = 'Hari-Hari yang Mengalir Santai &'.split(' ');
+  const headerWords2 = 'Keheningan Alami'.split(' ');
+
   return (
     <section
       id="experiences"
@@ -24,11 +27,20 @@ export default function Experiences({ onOpenInquiry }) {
           marginBottom: '4rem'
         }}
       >
-        <div className="warm-badge" style={{ marginBottom: '1.25rem' }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.88, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          className="warm-badge"
+          style={{ marginBottom: '1.25rem', cursor: 'default' }}
+        >
           <Sun size={13} />
           <span>Momen Santai &amp; Intim di Pulau</span>
-        </div>
+        </motion.div>
 
+        {/* Staggered Word Reveal Heading */}
         <h2
           className="font-serif"
           style={{
@@ -36,16 +48,52 @@ export default function Experiences({ onOpenInquiry }) {
             fontWeight: 400,
             lineHeight: 1.15,
             color: '#241d17',
-            marginBottom: '1.25rem'
+            marginBottom: '1.25rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.28em'
           }}
         >
-          Hari-Hari yang Mengalir Santai &amp;{' '}
-          <span style={{ fontStyle: 'italic', color: '#c46d4a' }}>
-            Keheningan Alami
-          </span>
+          {headerWords1.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, color: '#b87532', transition: { duration: 0.2 } }}
+              style={{ display: 'inline-block', cursor: 'default' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+
+          {headerWords2.map((word, i) => (
+            <motion.span
+              key={`sub-${i}`}
+              initial={{ opacity: 0, y: 26, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              style={{
+                display: 'inline-block',
+                fontStyle: 'italic',
+                color: '#c46d4a',
+                cursor: 'default'
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </h2>
 
-        <p
+        <motion.p
+          initial={{ opacity: 0, y: 22, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.95, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           style={{
             maxWidth: '660px',
             fontSize: '1.05rem',
@@ -56,7 +104,7 @@ export default function Experiences({ onOpenInquiry }) {
         >
           Dari meditasi fajar yang ditemani kicauan burung tropis hingga kehangatan api unggun kayu apung di bawah langit berbintang, 
           setiap momen mengajak Anda untuk berhenti sejenak, bernapas lega, dan merasakan ketenangan sejati.
-        </p>
+        </motion.p>
       </div>
 
       {/* Bento Grid */}
@@ -73,10 +121,11 @@ export default function Experiences({ onOpenInquiry }) {
           return (
             <motion.div
               key={exp.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: idx * 0.12 }}
+              initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.85, delay: idx * 0.14, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6 }}
               className="glass-warm-card"
               style={{
                 gridColumn: isLarge ? 'span 7' : 'span 5',
@@ -110,7 +159,7 @@ export default function Experiences({ onOpenInquiry }) {
                     objectFit: 'cover',
                     transition: 'transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.06)')}
                   onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
                 />
                 <div
@@ -181,7 +230,9 @@ export default function Experiences({ onOpenInquiry }) {
                   {exp.description}
                 </p>
 
-                <div
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -195,7 +246,7 @@ export default function Experiences({ onOpenInquiry }) {
                 >
                   <span>Nikmati Momen Ini</span>
                   <ArrowRight size={14} />
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           );
